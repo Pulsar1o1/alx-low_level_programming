@@ -1,47 +1,21 @@
-Task Descriptions
+0x00. C - Hello, World
 
-Task 0: Preprocessor
-- Save the C file name in the variable `$CFILE`.
-- Run the C file through the preprocessor.
-- Save the result in a file named 'c'.
+Tasks
 
-Task 1: Compiler
-- Save the C file name in the variable `$CFILE`.
-- Compile the C file without linking.
-- The output file should have the same name as the C file but with the extension `.o`.
+0. Preprocessor: Script to run C file through preprocessor and save in 'c'.
 
-Task 2: Assembler
-- Save the C file name in the variable `$CFILE`.
-- Generate the assembly code from the C file.
-- Save the assembly code in a file with the same name as the C file but with the extension `.s`.
+1. Compiler: Script to compile a C file without linking.
 
-Task 3: Name
-- Save the C file name in the variable `$CFILE`.
-- Compile the C file to create an executable named 'cisfun'.
+2. Assembler: Script to generate assembly code from C and save it as .s.
 
-Task 4: Hello, puts
-- Write a C program that prints "Programming is like building a multilingual puzzle," using the `puts` function.
-- The program should end with the value 0.
+3. Name: Compile a C file to create 'cisfun' executable.
 
-Task 5: Hello, printf
-- Write a C program that prints "with proper grammar, but the outcome is a piece of art," using the `printf` function.
-- The program should return 0.
-- The program should compile without warnings when using the `-Wall` gcc option.
+4. Hello, puts: C program using `puts` to print a message and return 0.
 
-Task 6: Size is not grandeur...
-- Write a C program that prints the size of various types on the computer it is compiled and run on.
-- Produce the exact same output as in the example.
-- Warnings are allowed.
-- The program should return 0.
-- You might have to install the package `libc6-dev-i386` on your Linux to test the `-m32` gcc option.
+5. Hello, printf: C program using `printf` to print a message and return 0.
 
-Task 7: Intel
-- Save the C file name in the variable `$CFILE`.
-- Generate the assembly code (Intel syntax) from the C file.
-- Save the assembly code in a file with the same name as the C file but with the extension `.s`.
+6. Size is not grandeur...: C program to print sizes of various types.
 
-Task 8: UNIX is basically a simple operating system...
-- Write a C program that prints "and that piece of art is useful" - Dora Korpar, 2015-10-19, to the standard error (stderr).
-- You are not allowed to use any functions listed in the `NAME` section of the `man (3)` `printf` or `man (3)` `puts`.
-- The program should return 1.
-- The program should compile without any warnings when using the `-Wall` gcc option.
+7. Intel: Script to generate Intel-syntax assembly from C.
+
+8. UNIX is basically...: C program to print a message to stderr and return 1.

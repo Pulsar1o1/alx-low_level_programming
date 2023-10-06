@@ -1,5 +1,8 @@
 #include <stdio.h>
-/*A program that prints combination of all two digit numbers*/
+/* 
+ * This program generates and prints all possible two-digit combinations
+ * with digits from 0 to 9.
+ */
 int main(void)
 {
 	int x, y;

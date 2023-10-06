@@ -1,7 +1,9 @@
 #include <stdio.h>
-/* 
- * This program generates and prints all possible two-digit combinations
- * with digits from 0 to 9.
+#include <stdlib.h>
+/**
+ * main - a program that prints combination of all two digit numbers.
+ *
+ * Return: Always 0 (Success)
  */
 int main(void)
 {

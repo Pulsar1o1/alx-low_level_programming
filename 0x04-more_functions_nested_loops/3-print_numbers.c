@@ -1,16 +1,17 @@
 #include "main.h"
 
 /**
- * print_numbers - prints the numbers from 0 to 9, followed by a new line
+ * print_numbers - entry point
+ * Return: void
  */
+
 void print_numbers(void)
 {
-	char digits[] = "0123456789";
-	int i;
+	int number;
 
-	for (i = 0; digits[i] != '\0'; i++)
+	for (number = '0'; number <= '9'; number++)
 	{
-        	_putchar(digits[i]);
+		_putchar(number);
 	}
 	_putchar('\n');
 }

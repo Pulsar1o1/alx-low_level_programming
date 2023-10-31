@@ -21,16 +21,21 @@ int count_words(char *str)
 }
 
 /**
- * allocate_and_copy - Allocates memory for a string and copies it.
- * @str: The input string to copy.
- * @len: The length of the string.
+ * _strdup - Duplicates a string in memory.
+ * @str: The input string.
  *
  * Return: A pointer to the newly allocated string.
  */
-char *allocate_and_copy(char *str, int len)
+char *_strdup(char *str)
 {
 	char *duplicate;
-	int i;
+	int i, len = 0;
+
+	if (str == NULL)
+		return (NULL);
+
+	while (str[len])
+		len++;
 
 	duplicate = malloc(sizeof(char) * (len + 1));
 
@@ -74,8 +79,18 @@ char **strtow(char *str)
 		while (str[k + len] != ' ' && str[k + len] != '\0')
 			len++;
 
-		words[i] = allocate_and_copy(&str[k], len);
+		words[i] = _strdup(&str[k]);
 		if (words[i] == NULL)
 		{
-			for (j
+			for (j = 0; j < i; j++)
+				free(words[j]);
+			free(words);
+			return (NULL);
+		}
+		k += len;
+	}
+	words[i] = NULL;
+
+	return (words);
+}
 

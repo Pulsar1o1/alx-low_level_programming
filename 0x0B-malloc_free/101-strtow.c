@@ -9,15 +9,15 @@
  */
 int count_words(char *str)
 {
-	int i, count = 0;
+    int i, count = 0;
 
-	for (i = 0; str[i]; i++)
-	{
-		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
-			count++;
-	}
+    for (i = 0; str[i]; i++)
+    {
+        if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
+            count++;
+    }
 
-	return (count);
+    return (count);
 }
 
 /**
@@ -28,24 +28,24 @@ int count_words(char *str)
  */
 char *_strdup(char *str)
 {
-	char *duplicate;
-	int i, len = 0;
+    char *duplicate;
+    int i, len = 0;
 
-	if (str == NULL)
-		return (NULL);
+    if (str == NULL)
+        return (NULL);
 
-	while (str[len])
-		len++;
+    while (str[len])
+        len++;
 
-	duplicate = malloc(sizeof(char) * (len + 1));
+    duplicate = malloc(sizeof(char) * (len + 1));
 
-	if (duplicate == NULL)
-		return (NULL);
+    if (duplicate == NULL)
+        return (NULL);
 
-	for (i = 0; i <= len; i++)
-		duplicate[i] = str[i];
+    for (i = 0; i <= len; i++)
+        duplicate[i] = str[i];
 
-	return (duplicate);
+    return (duplicate);
 }
 
 /**
@@ -56,41 +56,40 @@ char *_strdup(char *str)
  */
 char **strtow(char *str)
 {
-	char **words;
-	int i, j, k, len, word_count = 0;
+    char **words;
+    int i, j, k, len, word_count = 0;
 
-	if (str == NULL || str[0] == '\0')
-		return (NULL);
+    if (str == NULL || str[0] == '\0')
+        return (NULL);
 
-	word_count = count_words(str);
-	if (word_count == 0)
-		return (NULL);
+    word_count = count_words(str);
+    if (word_count == 0)
+        return (NULL);
 
-	words = malloc(sizeof(char *) * (word_count + 1));
-	if (words == NULL)
-		return (NULL);
+    words = malloc(sizeof(char *) * (word_count + 1));
+    if (words == NULL)
+        return (NULL);
 
-	for (i = 0, k = 0; i < word_count; i++)
-	{
-		while (str[k] == ' ')
-			k++;
+    for (i = 0, k = 0; i < word_count; i++)
+    {
+        while (str[k] == ' ')
+            k++;
 
-		len = 0;
-		while (str[k + len] != ' ' && str[k + len] != '\0')
-			len++;
+        len = 0;
+        while (str[k + len] != ' ' && str[k + len] != '\0')
+            len++;
 
-		words[i] = _strdup(&str[k]);
-		if (words[i] == NULL)
-		{
-			for (j = 0; j < i; j++)
-				free(words[j]);
-			free(words);
-			return (NULL);
-		}
-		k += len;
-	}
-	words[i] = NULL;
+        words[i] = _strdup(&str[k]);
+        if (words[i] == NULL)
+        {
+            for (j = 0; j < i; j++)
+                free(words[j]);
+            free(words);
+            return (NULL);
+        }
+        k += len;
+    }
+    words[i] = NULL;
 
-	return (words);
+    return (words);
 }
-

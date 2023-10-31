@@ -2,95 +2,66 @@
 #include <stdlib.h>
 
 /**
- * count_words - Counts the number of words in a string.
- * @str: The input string.
+ * ch_free_grid - frees a 2 dimensional array
+ * @grid: multidimensional array of char
+ * @height: height of the array
  *
- * Return: The number of words in the string.
+ * Return: no return
  */
-int count_words(char *str)
+void ch_free_grid(char **grid, unsigned int height)
 {
-	int i, count = 0;
-
-	for (i = 0; str[i]; i++)
+	if (grid != NULL && height != 0)
 	{
-		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
-			count++;
+		for (; height > 0; height--)
+			free(grid[height]);
+		free(grid[height]);
+		free(grid);
 	}
-
-	return (count);
 }
 
 /**
- * _strdup - Duplicates a string in memory.
- * @str: The input string.
+ * strtow - splits a string into words
+ * @str: string
  *
- * Return: A pointer to the newly allocated string.
- */
-char *_strdup(char *str)
-{
-	char *duplicate;
-	int i, len = 0;
-
-	if (str == NULL)
-		return (NULL);
-
-	while (str[len])
-		len++;
-
-	duplicate = malloc(sizeof(char) * (len + 1));
-
-	if (duplicate == NULL)
-		return (NULL);
-
-	for (i = 0; i <= len; i++)
-		duplicate[i] = str[i];
-
-	return (duplicate);
-}
-
-/**
- * strtow - Splits a string into words.
- * @str: The input string.
- *
- * Return: A pointer to an array of strings (words).
+ * Return: pointer of an array of integers
  */
 char **strtow(char *str)
 {
-	char **words;
-	int i, j, k, len, word_count = 0;
+	char **aout;
+	unsigned int c, height, i, j, a1;
 
-	if (str == NULL || str[0] == '\0')
+	if (str == NULL || *str == '\0')
 		return (NULL);
-
-	word_count = count_words(str);
-	if (word_count == 0)
-		return (NULL);
-
-	words = malloc(sizeof(char *) * (word_count + 1));
-	if (words == NULL)
-		return (NULL);
-
-	for (i = 0, k = 0; i < word_count; i++)
+	for (c = height = 0; str[c] != '\0'; c++)
+		if (str[c] != ' ' && (str[c + 1] == ' ' || str[c + 1] == '\0'))
+			height++;
+	aout = malloc((height + 1) * sizeof(char *));
+	if (aout == NULL || height == 0)
 	{
-		while (str[k] == ' ')
-			k++;
-
-		len = 0;
-		while (str[k + len] != ' ' && str[k + len] != '\0')
-			len++;
-
-		words[i] = _strdup(&str[k]);
-		if (words[i] == NULL)
-		{
-			for (j = 0; j < i; j++)
-				free(words[j]);
-			free(words);
-			return (NULL);
-		}
-		k += len;
+		free(aout);
+		return (NULL);
 	}
-	words[i] = NULL;
-
-	return (words);
+	for (i = a1 = 0; i < height; i++)
+	{
+		for (c = a1; str[c] != '\0'; c++)
+		{
+			if (str[c] == ' ')
+				a1++;
+			if (str[c] != ' ' && (str[c + 1] == ' ' || str[c + 1] == '\0'))
+			{
+				aout[i] = malloc((c - a1 + 2) * sizeof(char));
+				if (aout[i] == NULL)
+				{
+					ch_free_grid(aout, i);
+					return (NULL);
+				}
+				break;
+			}
+		}
+		for (j = 0; a1 <= c; a1++, j++)
+			aout[i][j] = str[a1];
+		aout[i][j] = '\0';
+	}
+	aout[i] = NULL;
+	return (aout);
 }
-

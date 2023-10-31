@@ -2,88 +2,80 @@
 #include <stdlib.h>
 
 /**
- * word_count - Count the number of words in a string.
- * @str: The string to count words in.
+ * count_words - Counts the number of words in a string.
+ * @str: The input string.
  *
- * Return: Number of words.
+ * Return: The number of words in the string.
  */
-int word_count(char *str)
+int count_words(char *str)
 {
-	int count = 0;
-	int in_word = 0; /* Flag to track if we're inside a word */
+	int i, count = 0;
 
-	while (*str)
+	for (i = 0; str[i]; i++)
 	{
-		if (*str == ' ')
-		{
-			if (in_word)
-				in_word = 0;
-		}
-		else
-		{
-			if (!in_word)
-			{
-				in_word = 1;
-				count++;
-			}
-		}
-		str++;
+		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
+			count++;
 	}
 
 	return (count);
 }
 
 /**
- * strtow - Split a string into words.
- * @str: The string to split.
+ * allocate_and_copy - Allocates memory for a string and copies it.
+ * @str: The input string to copy.
+ * @len: The length of the string.
  *
- * Return: Pointer to an array of strings (words).
+ * Return: A pointer to the newly allocated string.
+ */
+char *allocate_and_copy(char *str, int len)
+{
+	char *duplicate;
+	int i;
+
+	duplicate = malloc(sizeof(char) * (len + 1));
+
+	if (duplicate == NULL)
+		return (NULL);
+
+	for (i = 0; i <= len; i++)
+		duplicate[i] = str[i];
+
+	return (duplicate);
+}
+
+/**
+ * strtow - Splits a string into words.
+ * @str: The input string.
+ *
+ * Return: A pointer to an array of strings (words).
  */
 char **strtow(char *str)
 {
 	char **words;
-	int wc, word_len, i, j;
+	int i, j, k, len, word_count = 0;
 
-	if (str == NULL || *str == '\0')
+	if (str == NULL || str[0] == '\0')
 		return (NULL);
 
-	wc = word_count(str);
-	if (wc == 0)
+	word_count = count_words(str);
+	if (word_count == 0)
 		return (NULL);
 
-	words = malloc((wc + 1) * sizeof(char *));
+	words = malloc(sizeof(char *) * (word_count + 1));
 	if (words == NULL)
 		return (NULL);
 
-	i = 0;
-	while (*str)
+	for (i = 0, k = 0; i < word_count; i++)
 	{
-		if (*str == ' ')
-		{
-			str++;
-			continue;
-		}
+		while (str[k] == ' ')
+			k++;
 
-		word_len = 0;
-		while (str[word_len] != ' ' && str[word_len] != '\0')
-			word_len++;
+		len = 0;
+		while (str[k + len] != ' ' && str[k + len] != '\0')
+			len++;
 
-		words[i] = malloc((word_len + 1) * sizeof(char));
+		words[i] = allocate_and_copy(&str[k], len);
 		if (words[i] == NULL)
 		{
-			for (j = 0; j < i; j++)
-				free(words[j]);
-			free(words);
-			return (NULL);
-	}
-
-	for (j = 0; j < word_len; j++)
-		words[i][j] = *str++;
-	words[i][j] = '\0';
-	i++;
-	}
-	words[i] = NULL;
-
-	return (words);
-}
+			for (j
 

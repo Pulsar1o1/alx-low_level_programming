@@ -89,7 +89,7 @@ char **strtow(char *str)
 }
 
 /**
- * word_count - count number of words
+ * word_count - Count number of words
  *
  * @str: char pointer
  *
@@ -153,3 +153,5 @@ char *first_word(char *str)
 		}
 		return (word);
 }
+
+

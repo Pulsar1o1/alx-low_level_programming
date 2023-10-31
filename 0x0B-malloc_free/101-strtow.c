@@ -1,157 +1,89 @@
 #include "main.h"
 #include <stdlib.h>
 
-int word_count(char *str);
-char *first_word(char *str);
+/**
+ * word_count - Count the number of words in a string.
+ * @str: The string to count words in.
+ *
+ * Return: Number of words.
+ */
+int word_count(char *str)
+{
+	int count = 0;
+	int in_word = 0; /* Flag to track if we're inside a word */
+
+	while (*str)
+	{
+		if (*str == ' ')
+		{
+			if (in_word)
+				in_word = 0;
+		}
+		else
+		{
+			if (!in_word)
+			{
+				in_word = 1;
+				count++;
+			}
+		}
+		str++;
+	}
+
+	return (count);
+}
 
 /**
- * **strtow - set memory function
+ * strtow - Split a string into words.
+ * @str: The string to split.
  *
- * @str: pointer to array
- *
- * Return: s
+ * Return: Pointer to an array of strings (words).
  */
-
 char **strtow(char *str)
 {
-	char **strArr;
-	int wordCount, counter, letter;
-
+	char **words;
+	int wc, word_len, i, j;
 
 	if (str == NULL || *str == '\0')
 		return (NULL);
 
-	wordCount = word_count(str);
-
-	strArr = (char **)malloc(sizeof(char *) * (wordCount + 1));
-
-	if (!strArr)
+	wc = word_count(str);
+	if (wc == 0)
 		return (NULL);
 
-	for (counter = 0; counter <= wordCount;)
-	{
-		strArr[counter] = (NULL);
-		counter++;
-	}
-
-	counter = 0;
-	wordCount = 0;
-	letter = 0;
-
-
-	while (str[counter] != '\0')
-	{
-			if (str[counter] != ' ' && !letter)
-			{
-				strArr[wordCount] = first_word(str + wordCount);
-				if (!strArr[counter])
-				{
-					wordCount--;
-					while (wordCount >= 0)
-						free(*(strArr + wordCount--));
-					free(strArr);
-					return (NULL);
-				}
-				wordCount++;
-				letter = 1;
-			}
-			else if (*(str + counter) == ' ' && letter)
-				letter = 0;
-			counter++;
-
-		if (!wordCount)
-			return (NULL);
-
-		return (strArr);
-
-		if (str[wordCount] != ' ' && !letter)
-		{
-		       strArr[counter] = first_word(str + counter);
-			if (!strArr[counter])
-			{
-				wordCount--;
-				while (wordCount >= 0)
-					free(*(strArr + wordCount--));
-				free(strArr);
-				return (NULL);
-			}
-			wordCount++;
-			letter = 1;
-		}
-		else if (str[counter] == ' ' && letter)
-			letter = 0;
-		counter++;
-	}
-	if (!wordCount)
+	words = malloc((wc + 1) * sizeof(char *));
+	if (words == NULL)
 		return (NULL);
 
-	return (strArr);
-}
-
-/**
- * word_count - Count number of words
- *
- * @str: char pointer
- *
- * Return: Word count
- */
-
-int word_count(char *str)
-{
-	int counter = 0, wordCount, letter;
-
-	while (str[counter] != '\0')
+	i = 0;
+	while (*str)
 	{
-		if (str[counter] != ' ' && !letter)
+		if (*str == ' ')
 		{
-			wordCount++;
-			letter = 1;
+			str++;
+			continue;
 		}
-		else if (str[counter] == ' ' && letter)
+
+		word_len = 0;
+		while (str[word_len] != ' ' && str[word_len] != '\0')
+			word_len++;
+
+		words[i] = malloc((word_len + 1) * sizeof(char));
+		if (words[i] == NULL)
 		{
-			letter = 0;
-		}
-		counter++;
-	}
-	return (wordCount);
-}
-
-
-/**
- * first_word - Gets first word
- * @str: char pointer
- * Return: Pointer to word
- */
-
-char *first_word(char *str)
-{
-	int counter;
-	char *word;
-
-	counter = 0;
-
-	while (str[counter] != ' ' && str[counter] != '\0')
-	{
-		counter++;
-	}
-
-	word = malloc(sizeof(char) * (counter + 1));
-
-		if (!word)
-		{
+			for (j = 0; j < i; j++)
+				free(words[j]);
+			free(words);
 			return (NULL);
-		}
+	}
 
-		word[counter] = '\0';
+	for (j = 0; j < word_len; j++)
+		words[i][j] = *str++;
+	words[i][j] = '\0';
+	i++;
+	}
+	words[i] = NULL;
 
-		counter--;
-
-		while (counter >= 0)
-		{
-			word[counter] = str[counter];
-			counter--;
-		}
-		return (word);
+	return (words);
 }
-
 

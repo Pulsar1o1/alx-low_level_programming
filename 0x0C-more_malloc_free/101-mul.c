@@ -16,25 +16,25 @@ void print_result(int *result, int len);
  */
 int main(int argc, char *argv[])
 {
-    int *result;
+	int *result;
 
-    if (argc != 3 || !is_digit(argv[1]) || !is_digit(argv[2]))
-    {
-        printf("Error\n");
-        exit(98);
-    }
+	if (argc != 3 || !is_digit(argv[1]) || !is_digit(argv[2]))
+	{
+		printf("Error\n");
+		exit(98);
+	}
 
-    result = multiply(argv[1], argv[2]);
-    if (result == NULL)
-    {
-        printf("Error\n");
-        exit(98);
-    }
+	result = multiply(argv[1], argv[2]);
+	if (result == NULL)
+	{
+		printf("Error\n");
+	       	exit(98);
+	}
 
-    print_result(result, str_len(argv[1]) + str_len(argv[2]));
-    free(result);
+	print_result(result, str_len(argv[1]) + str_len(argv[2]));
+	free(result);
 
-    return (0);
+	return (0);
 }
 
 /**
@@ -45,15 +45,15 @@ int main(int argc, char *argv[])
  */
 int is_digit(char *str)
 {
-    if (*str == '-')
-        str++;
-    while (*str)
-    {
-        if (*str < '0' || *str > '9')
-            return (0);
-        str++;
-    }
-    return (1);
+	if (*str == '-')
+		str++;
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+			return (0);
+		str++;
+	}
+	return (1);
 }
 
 /**
@@ -64,13 +64,13 @@ int is_digit(char *str)
  */
 int str_len(char *str)
 {
-    int len = 0;
-    while (*str)
-    {
-        len++;
-        str++;
-    }
-    return (len);
+	int len = 0;
+	while (*str)
+	{
+		len++;
+		str++;
+	}
+	return (len);
 }
 
 /**
@@ -82,33 +82,33 @@ int str_len(char *str)
  */
 int *multiply(char *num1, char *num2)
 {
-    int len1 = str_len(num1);
-    int len2 = str_len(num2);
-    int len_result = len1 + len2;
-    int *result = malloc(sizeof(int) * len_result);
-    int i, j, n1, n2, prod, carry;
+	int len1 = str_len(num1);
+	int len2 = str_len(num2);
+	int len_result = len1 + len2;
+	int *result = malloc(sizeof(int) * len_result);
+	int i, j, n1, n2, prod, carry;
 
-    if (result == NULL)
-        return (NULL);
+	if (result == NULL)
+		return (NULL);
 
-    for (i = 0; i < len_result; i++)
-        result[i] = 0;
+	for (i = 0; i < len_result; i++)
+		result[i] = 0;
 
-    for (i = len1 - 1; i >= 0; i--)
-    {
-        n1 = num1[i] - '0';
-        carry = 0;
+	for (i = len1 - 1; i >= 0; i--)
+	{
+		n1 = num1[i] - '0';
+		carry = 0;
 
-        for (j = len2 - 1; j >= 0; j--)
-        {
-            n2 = num2[j] - '0';
-            prod = n1 * n2 + result[i + j + 1] + carry;
-            carry = prod / 10;
-            result[i + j + 1] = prod % 10;
-        }
-        result[i + j + 1] = carry;
-    }
-    return (result);
+		for (j = len2 - 1; j >= 0; j--)
+		{
+			n2 = num2[j] - '0';
+			prod = n1 * n2 + result[i + j + 1] + carry;
+			carry = prod / 10;
+			result[i + j + 1] = prod % 10;
+		}
+		result[i + j + 1] = carry;
+	}
+	return (result);
 }
 
 /**
@@ -118,19 +118,19 @@ int *multiply(char *num1, char *num2)
  */
 void print_result(int *result, int len)
 {
-    int i = 0;
-    while (i < len && result[i] == 0)
-        i++;
+	int i = 0;
+	while (i < len && result[i] == 0)
+		i++;
 
-    if (i == len)
-        putchar('0');
-    else
-    {
-        while (i < len)
-        {
-            putchar(result[i] + '0');
-            i++;
-        }
-    }
-    putchar('\n');
+	if (i == len)
+		putchar('0');
+	else
+	{
+		while (i < len)
+		{
+			putchar(result[i] + '0');
+			i++;
+		}
+	}
+	putchar('\n');
 }
